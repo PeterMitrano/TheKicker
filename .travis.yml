@@ -1,0 +1,6 @@
+language: java
+sudo: required
+dist: trusty
+before_script:
+  - ./configure
+script: ant -f build.xml

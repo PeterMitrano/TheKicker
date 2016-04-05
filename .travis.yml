@@ -2,5 +2,5 @@ language: java
 sudo: required
 dist: trusty
 before_script:
-  - ./configure
+  - sudo ./configure
 script: ant -f build.xml

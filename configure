@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function check-environment {
   # Ensure root access
   if [ "$(id -u)" != "0" ]; then
@@ -50,11 +52,10 @@ function install-eclipse-plugins {
   # - stable
 
   #this file is published to maven repo by simulation/build.gradle
-  if ! (wget -O /tmp/simulation.zip http://first.wpi.edu/FRC/roborio/maven/$PROMOTION_STATUS/edu/wpi/first/wpilib/simulation/simulation/1.0.0/simulation-1.0.0.zip)
+  if ! (wget -O /tmp/simulation.zip http://first.wpi.edu/FRC/roborio/maven/release/edu/wpi/first/wpilib/simulation/simulation/1.0.0/simulation-1.0.0.zip)
   then
     echo "***could not download wpilib simulation plugins, wrong URL probably***"
-    echo "promotion status = $PROMOTION_STATUS"
-    echo "url = http://first.wpi.edu/FRC/roborio/maven/$PROMOTION_STATUS/edu/wpi/first/wpilib/simulation/simulation/1.0.0/simulation-1.0.0.zip"
+    echo "url = http://first.wpi.edu/FRC/roborio/maven/release/edu/wpi/first/wpilib/simulation/simulation/1.0.0/simulation-1.0.0.zip"
     install-fail
   fi
 
@@ -200,40 +201,5 @@ function change-ownership {
   chown -R $NON_SUDO_USER:$NON_SUDO_USER ~/wpilib
 }
 
-if [ "$1" == "INSTALL-ROOT" ]
-then
-
-  if [ -z "$2" ]
-  then
-    echo "*** Could not set user ~/wpilib ownership to empty user***"
-    install-fail
-  else
-    NON_SUDO_USER="$2"
-  fi
-
-  if [ -z "$3" ]
-  then
-    PROMOTION_STATUS="release"
-  else
-    PROMOTION_STATUS="$3"
-  fi
-
-  install-frcsim
-
-elif [ "$1" == "INSTALL" ]
-then
-  NON_SUDO_USER="$USER"
-  PROMOTION_STATUS="$2"
-  SUDO_ASKPASS=/usr/bin/ssh-askpass sudo bash -c "$0 INSTALL-ROOT $NON_SUDO_USER $PROMOTION_STATUS"
-elif [ "$1" == "REMOVE-ROOT" ]
-then
-  remove-frcsim
-elif [ "$1" == "REMOVE" ]
-then
-  NON_SUDO_USER="$USER"
-  SUDO_ASKPASS=/usr/bin/ssh-askpass sudo bash -c "$0 REMOVE-ROOT $NON_SUDO_USER $PROMOTION_STATUS"
-else
-  echo "***This script requires an argument!***"
-  echo "***Run ./frcsim_installer.sh INSTALL to install***"
-  echo "***The other option is REMOVE"
-fi
+## ACTUAL SCRIPT
+install-frcsim

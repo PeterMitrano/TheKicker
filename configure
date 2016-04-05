@@ -105,23 +105,8 @@ function install-toolchain {
   if [[ "`lsb_release -rs`" == "14.04" ]]
   then
     echo "*** You're using `lsb_release -r`, you will need additional repositories***"
-    echo "*** Install? (y/n)" 1>&2
-    read CONT
-    if [ "$CONT" != "y" -a "$CONT" != "Y" ]; then
-      install-fail
-    fi
     add-apt-repository ppa:openjdk-r/ppa -y
     add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  fi
-  if [[ "`lsb_release -rs`" == "15.04" ]]
-  then
-    echo "*** You're using `lsb_release -r`, you will need additional repositories***"
-    echo "*** Install? (y/n)" 1>&2
-    read CONT
-    if [ "$CONT" != "y" -a "$CONT" != "Y" ]; then
-      install-fail
-    fi
-    add-apt-repository ppa:openjdk-r/ppa -y
   fi
 
   # Update and install dependencies

@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCommand extends CommandGroup {
 
 	public AutonomousCommand() {
-//		addSequential(new DriveUntilDistance(1));
-//		addSequential(new Kick());
+		addSequential(new DriveUntilDistance(1));
+		addSequential(new Kick());
 	}
 
 }

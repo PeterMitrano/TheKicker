@@ -1,7 +1,8 @@
 package org.usfirst.frc293.TheKicker.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc293.TheKicker.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class Kick extends Command {
 
@@ -10,18 +11,21 @@ public class Kick extends Command {
     }
 
     protected void initialize() {
+      setTimeout(1);
+      Robot.kicker.kick();
     }
 
     protected void execute() {
     }
 
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     protected void end() {
     }
 
     protected void interrupted() {
+      end();
     }
 }

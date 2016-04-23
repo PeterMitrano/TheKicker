@@ -13,6 +13,7 @@ public class DriveWithGamepad extends Command {
     }
 
     protected void execute() {
+    	Robot.driveBase.tankDrive(Robot.oi.getjoystick());
     }
 
     protected boolean isFinished() {

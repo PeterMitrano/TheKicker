@@ -1,13 +1,14 @@
 package org.usfirst.frc293.TheKicker.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc293.TheKicker.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveUntilDistance extends Command {
 
-	int distance, currentDisplacement;
-	
-	public DriveUntilDistance(int distance) {
+	double distance, currentDisplacement;
+
+	public DriveUntilDistance(double distance) {
 		this.distance = distance;
 		this.currentDisplacement = 0;
 	}
@@ -16,10 +17,14 @@ public class DriveUntilDistance extends Command {
 	}
 
 	protected void execute() {
+		Robot.driveBase.tankDrive(0.2, 0.2);
+		double l = Robot.driveBase.leftEncoderDistance();
+		double r = Robot.driveBase.rightEncoderDistance();
+		currentDisplacement = (l + r) / 2.0;
 	}
 
 	protected boolean isFinished() {
-		return currentDisplacement < distance;
+		return currentDisplacement > distance;
 	}
 
 	protected void end() {

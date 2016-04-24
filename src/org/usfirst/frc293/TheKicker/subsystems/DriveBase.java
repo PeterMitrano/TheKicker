@@ -1,5 +1,7 @@
 package org.usfirst.frc293.TheKicker.subsystems;
 
+import org.usfirst.frc293.TheKicker.commands.DriveWithGamepad;
+
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -51,11 +53,12 @@ public class DriveBase extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new DriveWithGamepad());
 	}
 
 	public void tankDrive(Joystick joystick){
-		double left = joystick.getRawAxis(0);
-		double right = joystick.getRawAxis(1);
+		double left = -joystick.getRawAxis(1);
+		double right = -joystick.getRawAxis(4);
 		robotDrive.tankDrive(left, right);
 	}
 
